@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\PatientResource\Pages;
 use App\Filament\Resources\PatientResource\RelationManagers;
+use App\Filament\Clusters\SettingsCluster;
 use App\Models\Patient;
 use App\Models\Owner;
 use Filament\Forms;
@@ -13,6 +14,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Tables\Columns\Layout\Split;
 
 class PatientResource extends Resource
 {
@@ -63,13 +65,15 @@ class PatientResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')
-                ->searchable(),
-                Tables\Columns\TextColumn::make('type'),
-                Tables\Columns\TextColumn::make('date_of_birth')
-                ->sortable(),
-                Tables\Columns\TextColumn::make('owner.name')
-                ->searchable(),
+                Split::make([
+                    Tables\Columns\TextColumn::make('name')
+                    ->searchable(),
+                    Tables\Columns\TextColumn::make('type'),
+                    Tables\Columns\TextColumn::make('date_of_birth')
+                    ->sortable(),
+                    Tables\Columns\TextColumn::make('owner.name')
+                    ->searchable(),
+                ])->from('md'),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('type')
