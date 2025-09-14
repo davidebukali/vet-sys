@@ -7,6 +7,7 @@ use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Filament\Tables\Columns\Summarizers\Sum;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
@@ -39,7 +40,7 @@ class TreatmentsRelationManager extends RelationManager
             ->columns([
                 Tables\Columns\TextColumn::make('description'),
                 Tables\Columns\TextColumn::make('price')
-                ->money('EUR')
+                ->summarize(Sum::make()->money('UGX'))
                 ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                 ->dateTime('m-d-Y h:i A'),
