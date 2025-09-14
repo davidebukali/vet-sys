@@ -3,13 +3,25 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Database\Factories\PatientTestFactory;
 use App\Models\Owner;
 use App\Models\Treatment;
 
 class Patient extends Model
 {
+    use HasFactory;
+
+    /**
+     * Create a new factory instance for the model.
+     */
+    protected static function newFactory(): PatientTestFactory
+    {
+        return PatientTestFactory::new();
+    }
+
     public function owner(): BelongsTo
     {
         return $this->belongsTo(Owner::class);
